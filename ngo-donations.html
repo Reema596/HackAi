@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGO Donations</title>
+    <link rel="stylesheet" href="ngo-donations.css">
+</head>
+<body>
+    <h2>Available Donations</h2>
+
+    <p id="loadingMessage">Loading available donations...</p>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Organization</th>
+                <th>Food Name</th>
+                <th>Quantity (kg)</th>
+                <th>Manufacturing Date</th>
+                <th>Expiry Date</th>
+                <th>Claim</th>
+            </tr>
+        </thead>
+        <tbody id="ngoDonationTable"></tbody>
+    </table>
+
+    <script>
+        function fetchDonations() {
+            fetch("http://localhost:3000/donations")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("✅ API Response:", data);
+
+                    document.getElementById("loadingMessage").style.display = "none";
+
+                    if (!Array.isArray(data) || data.length === 0) {
+                        document.getElementById("ngoDonationTable").innerHTML = 
+                            `<tr><td colspan="6">No available donations found.</td></tr>`;
+                        return;
+                    }
+
+                    const tableBody = document.getElementById("ngoDonationTable");
+                    tableBody.innerHTML = ""; 
+
+                    data.forEach(item => {
+                        const row = `<tr>
+                            <td>${item.organization || "N/A"}</td>
+                            <td>${item.food || "N/A"}</td>
+                            <td>${item.quantity || "N/A"}</td>
+                            <td>${item.manufacturing_date ? new Date(item.manufacturing_date).toLocaleDateString() : "N/A"}</td>
+                            <td>${item.expiry_date ? new Date(item.expiry_date).toLocaleDateString() : "N/A"}</td>
+                            <td><button onclick="claimDonation(${item.id || 'null'})">Claim</button></td>
+                        </tr>`;
+                        tableBody.insertAdjacentHTML("beforeend", row);
+                    });
+                })
+                .catch(error => {
+                    console.error("❌ Fetch Error:", error);
+                    document.getElementById("loadingMessage").innerHTML = "Failed to load donations.";
+                });
+        }
+
+        function claimDonation(id) {
+            if (!id || id === "null") {
+                alert("❌ Error: Invalid donation ID.");
+                return;
+            }
+
+            fetch(`http://localhost:3000/claim-donation/${id}`, {
+                method: "PUT"
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP Error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert(data.message);
+                fetchDonations(); // Refresh the table
+            })
+            .catch(error => {
+                console.error("❌ Claim Error:", error);
+                alert("Failed to claim the donation.");
+            });
+        }
+
+        fetchDonations(); // Load donations on page load
+    </script>
+</body>
+</html>

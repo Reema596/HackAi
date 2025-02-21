@@ -1,0 +1,201 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #FAF3E0, #EAE0D5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    animation: fadeInBg 1.5s ease-in-out;
+}
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.form-container {
+    background: white;
+    display: flex;
+    width: 800px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.form-container:hover {
+    transform: scale(1.02);
+}
+
+.signin-section, .signup-section {
+    padding: 50px;
+    width: 50%;
+    text-align: center;
+}
+
+.signin-section {
+    background: white;
+}
+
+h2 {
+    margin-bottom: 15px;
+    color: #2E7D32;
+    font-size: 24px;
+    font-weight: bold;
+    animation: slideIn 1s ease-in-out;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.social-btn {
+    border: none;
+    background: #EAEAEA;
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Icon Colors */
+.social-btn i {
+    color: #2E7D32;
+    font-size: 18px;
+}
+
+/* Hover Effects */
+.social-btn:hover {
+    background: #D4A373;
+    transform: scale(1.1);
+}
+
+.social-btn:hover i {
+    color: white;
+}
+
+/* Input Fields */
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #2E7D32;
+    outline: none;
+    transform: scale(1.02);
+}
+
+/* Forgot Password */
+a {
+    display: block;
+    color: #D4A373;
+    text-decoration: none;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+}
+
+.signin-btn {
+    background: #2E7D32;
+    color: white;
+}
+
+.signin-btn:hover {
+    background: #1B5E20;
+}
+
+.signup-btn {
+    background: white;
+    color: #D4A373;
+    border: 2px solid white;
+}
+
+.signup-btn:hover {
+    background: #D4A373;
+    color: white;
+}
+
+/* Right: Sign Up */
+.signup-section {
+    background: #2E7D32;
+    color: white;
+}
+
+/* Animations */
+@keyframes fadeInBg {
+    from {
+        opacity: 0;
+        background-color: #EAE0D5;
+    }
+    to {
+        opacity: 1;
+        background-color: #FAF3E0;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1.2s ease-in-out;
+}
+
+.slide-in {
+    animation: slideIn 1s ease-in-out;
+}

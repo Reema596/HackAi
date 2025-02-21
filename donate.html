@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Food - Food Donation</title>
+    <link rel="stylesheet" href="donate.css">
+</head>
+<body>
+
+    <header>
+        <h1>Donate Food</h1>
+        <p>Your contribution helps feed the hungry and reduce food waste.</p>
+    </header>
+
+    <section class="donation-container">
+        <div class="donation-info">
+            <h2>Why Donate Food?</h2>
+            <p>Millions of people struggle with hunger daily. By donating food, you provide meals to those in need and help prevent waste.</p>
+            <h3>What Can You Donate?</h3>
+            <ul>
+                <li>🥖 Fresh Bread & Bakery Items</li>
+                <li>🥫 Canned & Packaged Foods</li>
+                <li>🍏 Fresh Fruits & Vegetables</li>
+                <li>🥩 Uncooked Meat (Properly Sealed)</li>
+                <li>🥛 Dairy Products (Within Expiry Date)</li>
+            </ul>
+        </div>
+
+        <div class="donation-form">
+            <h2>Fill in Your Donation Details</h2>
+            <form onsubmit="showPopup(event)">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="text" name="location" placeholder="Pickup Location" required>
+                <input type="text" name="food-type" placeholder="Type of Food (e.g., Rice, Vegetables)" required>
+                <input type="number" name="quantity" placeholder="Quantity (e.g., 5 kg, 10 packs)" required>
+                <textarea name="message" placeholder="Additional Notes (Optional)" rows="3"></textarea>
+                <button type="submit">Submit Donation</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Popup Message -->
+    <div id="popup" class="popup">
+        <p>Thank you for your generosity! Our team will contact you soon for pickup.</p>
+        <button onclick="hidePopup()">OK</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Food Donation. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showPopup(event) {
+            event.preventDefault(); // Prevent form submission
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function hidePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Food Donation</title>
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+
+    <header>
+        <h1>Contact Us</h1>
+    </header>
+
+    <section class="contact-container">
+        <div class="contact-info">
+            <h2>Get in Touch</h2>
+            <p><strong>Email:</strong> support@fooddonation.org</p>
+            <p><strong>Phone:</strong> +123-456-7890</p>
+            <p><strong>Address:</strong> 123 Food Street, Helping Hands City(Jalandhar)</p>
+        </div>
+
+        <div class="contact-form">
+            <h2>Send Us a Message</h2>
+            <form onsubmit="showPopup(event)">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Popup Message -->
+    <div id="popup" class="popup">
+        <p>Thank you! Your message has been sent successfully.</p>
+        <button onclick="hidePopup()">OK</button>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Food Donation. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showPopup(event) {
+            event.preventDefault(); // Prevent form submission
+            document.getElementById("popup").style.display = "block";
+        }
+
+        function hidePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

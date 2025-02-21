@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation History</title>
+    <link rel="stylesheet" href="donation-history.css">
+</head>
+<body>
+    <h2>Donation History</h2>
+
+    <p id="loadingMessage">Loading donation history...</p>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Organization</th>
+                <th>Food Name</th>
+                <th>Quantity (kg)</th>
+                <th>Manufacturing Date</th>
+                <th>Expiry Date</th>
+                <th>Email</th>
+                <th>Status</th> <!-- ✅ Added Status Column -->
+            </tr>
+        </thead>
+        <tbody id="donationTable"></tbody>
+    </table>
+    
+    <a id="downloadCSV" href="http://localhost:3000/export-csv" download>
+        <button>Download Donation History</button>
+    </a>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch("http://localhost:3000/donations")
+                .then(response => {
+                    if (!response.ok) throw new Error("Network response was not ok");
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("📌 Fetched Data:", data);
+                    const tableBody = document.getElementById("donationTable");
+                    const loadingMessage = document.getElementById("loadingMessage");
+
+                    loadingMessage.style.display = "none";
+
+                    if (!Array.isArray(data) || data.length === 0) {
+                        tableBody.innerHTML = `<tr><td colspan="7">No donations found.</td></tr>`; // ✅ Updated colspan
+                        return;
+                    }
+
+                    let tableRows = "";
+                    data.forEach(item => {
+                        const manufacturingDate = new Date(item.manufacturing_date).toLocaleDateString();
+                        const expiryDate = new Date(item.expiry_date).toLocaleDateString();
+
+                        tableRows += `<tr>
+                            <td>${item.organization}</td>
+                            <td>${item.food}</td>
+                            <td>${item.quantity}</td>
+                            <td>${manufacturingDate}</td>
+                            <td>${expiryDate}</td>
+                            <td>${item.email || "N/A"}</td>
+                            <td>${item.status || "Pending"}</td> <!-- ✅ Show status -->
+                        </tr>`;
+                    });
+
+                    tableBody.innerHTML = tableRows;
+                })
+                .catch(error => {
+                    console.error("❌ Error fetching donations:", error);
+                    document.getElementById("loadingMessage").innerHTML = "Failed to load donation history.";
+                });
+        });
+    </script>
+</body>
+</html>
